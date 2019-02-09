@@ -1,5 +1,8 @@
 package Chess;
 
+
+import Chess.chessboard.Chessboard;
+import Chess.pieceContainer.Container;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -7,8 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 public class Controller {
-    protected Chessboard board = new Chessboard();
-    protected PieceHolder holder = new PieceHolder();
+    protected Chessboard chessboard = new Chessboard();
+    protected Container container = new Container();
 
     @FXML
     protected AnchorPane anchor, root;
@@ -21,27 +24,27 @@ public class Controller {
 
     @FXML
     protected void initialize() {
-        anchor.getChildren().add(board);
-        root.getChildren().add(holder);
-        board.setHolder(holder);
-        holder.setBoard(board);
+        anchor.getChildren().add(chessboard);
+        root.getChildren().add(container);
+        chessboard.setContainer(container);
+        container.setBoard(chessboard);
     }
 
     @FXML
     protected void handleNewBoard() {
-        board.makeStartingPositions();
+        chessboard.setStartingPositions();
     }
 
     @FXML
     protected void handleClearBoard() {
-        board.clearBoard();
-        board.clearHistory();
+        chessboard.clearBoard();
+        chessboard.clearHistory();
     }
 
     @FXML
     protected void handleUndoMove() {
         try {
-            board.undoLastMove();
+            chessboard.undoLastMove();
         } catch (Exception ex) {
             return;
         }
@@ -49,13 +52,18 @@ public class Controller {
 
     @FXML
     protected void handleMakePosition() {
-        board.setMoveLocked(true);
-        holder.setMoveLocked(true);
+        chessboard.setMoveLocked(true);
+        container.setMoveLocked(true);
     }
 
     @FXML
     protected void handlePlay() {
-        board.setMoveLocked(false);
-        holder.setMoveLocked(false);
+        chessboard.setMoveLocked(false);
+        container.setMoveLocked(false);
+    }
+
+    @FXML
+    protected void handleSwitchPossibleMoves() {
+        chessboard.setEnableShowMoves(possibleMoves.isSelected());
     }
 }

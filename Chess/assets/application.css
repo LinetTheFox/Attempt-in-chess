@@ -1,5 +1,5 @@
 .board {
-    -fx-background-image: url(assets/board.png);
+    -fx-background-image: url(board.png);
 }
 
 .chess-space-light {
@@ -22,8 +22,4 @@
 .chess-space-under-attack {
     -fx-border-radius: 30;
     -fx-border-color: red;
-}
-
-.chess-space-checked-king {
-    -fx-background-color: red;
 }
